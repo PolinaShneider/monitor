@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
-const {config} = require('./config');
+const config = require('./config');
 
 const app = express();
 const port = 3001;
