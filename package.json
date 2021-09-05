@@ -4,7 +4,8 @@
   "description": "🖤📈🚨",
   "main": "index.js",
   "scripts": {
-    "start": "forever start index.js"
+    "start": "forever start index.js",
+    "stop": "forever stopall"
   },
   "repository": {
     "type": "git",

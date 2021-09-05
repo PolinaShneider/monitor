@@ -23,7 +23,7 @@ const CITATIONS = [
     'Главный архитектор делает пуш',
     'Если есть реквест, то я найду респонс'
 ];
-const TIME = 2  * 1000 * 60;
+const TIME = process.env.PERIOD || 2  * 1000 * 60;
 const audios = [];
 
 const VK_ADMIN_TOKEN = process.env.VK_ADMIN_TOKEN || '';
@@ -59,7 +59,7 @@ getAudios();
 setInterval(() => {
     const url = `${VK_API_URL}status.set?access_token=${ACCESS_TOKEN}&v=${API_VER}&text=${encodeURIComponent(getTextStatus())}`;
     const musicUrl = `${VK_API_URL}status.set?access_token=${ACCESS_TOKEN}&v=${API_VER}&audio=${getRandomTrack()}`;
-    const targetUrl = Math.random() > 0 ? url : musicUrl;
+    const targetUrl = Math.random() > 0.5 ? url : musicUrl;
     axios.get(targetUrl)
         .then(function ({data: {response}}) {
             // handle success
