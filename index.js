@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
-require('dotenv').config();
+const {config} = require('./config');
 
 const app = express();
 const port = 3001;
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 const VK_API_URL = 'https://api.vk.com/method/';
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN || '';
+const ACCESS_TOKEN = config.ACCESS_TOKEN || '';
 const API_VER = 5.131;
 const CITATIONS = [
     'За решёткой есть жизнь, и на кладбище есть плюсы',
@@ -23,10 +23,10 @@ const CITATIONS = [
     'Главный архитектор делает пуш',
     'Если есть реквест, то я найду респонс'
 ];
-const TIME = process.env.PERIOD || 2  * 1000 * 60;
+const TIME = config.PERIOD || 2  * 1000 * 60;
 const audios = [];
 
-const VK_ADMIN_TOKEN = process.env.VK_ADMIN_TOKEN || '';
+const VK_ADMIN_TOKEN = config.VK_ADMIN_TOKEN || '';
 
 const getAudios = () => {
     const url = `${VK_API_URL}audio.get?access_token=${VK_ADMIN_TOKEN}&v=${API_VER}`;
