@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "forever start index.js",
+    "image": "forever start image.js",
     "stop": "forever stopall"
   },
   "repository": {

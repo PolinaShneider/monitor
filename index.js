@@ -26,7 +26,7 @@ const CITATIONS = [
     'Главный архитектор делает пуш',
     'Если есть реквест, то я найду респонс'
 ];
-const files = fs.readdirSync('./images');
+const files = fs.readdirSync('./images').filter((it) => it.endsWith('.jpeg'));
 const TIME = config.PERIOD || 2  * 1000 * 60;
 const CHANGE_AVATAR_TIME = config.CHANGE_AVATAR_TIME || 2 * 1000 * 60 * 60;
 const audios = [];
@@ -80,7 +80,8 @@ setInterval(() => {
 
 const preparePhotoForUpload = (fileName) => {
     const formData = new FormData();
-    formData.append('photo', fs.createReadStream(`images/${fileName}`));
+    const prefix = (fileName === 'image.jpeg') ? 'resized' : 'images';
+    formData.append('photo', fs.createReadStream(`${prefix}/${fileName}`));
     return formData;
 };
 
@@ -110,7 +111,8 @@ const savePhotoID = () => {
 };
 
 const getServerUrl = async () => {
-    const chosenFile = files[Math.floor(Math.random() * files.length)];
+    const avatarWithData = fs.readdirSync('./resized')[0];
+    const chosenFile = avatarWithData || files[Math.floor(Math.random() * files.length)];
     const formData = preparePhotoForUpload(chosenFile);
 
     const SERVER_URL = `${VK_API_URL}photos.getOwnerPhotoUploadServer?access_token=${ACCESS_TOKEN}&v=${API_VER}`;

@@ -14,7 +14,7 @@ setInterval(() => {
             .region(890, 100, 0, 900).colors(1).fill("white").blur(2,2)
             .font("./font/RobotoBold.ttf", 30)
             .drawText(0, 0, text, "Center")
-            .write(`./resized/${chosenFile}`, function (err) {
+            .write(`./resized/image.jpeg`, function (err) {
                 if (err) {
                     console.log(err)
                 }
