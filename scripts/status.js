@@ -54,7 +54,7 @@ const getAudiosJob = new CronJob('0 0 */6 * * *', async () => {
     getAudios();
 }, null, true, 'Europe/Moscow');
 
-const changeStatusJob = new CronJob('0 2 * * * *', async () => {
+const changeStatusJob = new CronJob('0 */2 * * * *', async () => {
     changeStatus();
 }, null, true, 'Europe/Moscow');
 
