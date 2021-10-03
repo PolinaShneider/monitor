@@ -5,6 +5,7 @@ const CronJob = require('cron').CronJob;
 
 const config = require('../config');
 const {API_VER, VK_API_URL} = require('./constants');
+const {imageMagick} = require('./image');
 
 const ACCESS_TOKEN = config.ACCESS_TOKEN || '';
 const MY_ID = config.MY_ID || '';
@@ -63,6 +64,11 @@ const updateAvatar = async () => {
     }
 };
 
+const updateAvatarJob = new CronJob('30 0 */6 * * *', async () => {
+    await imageMagick();
+    await updateAvatar();
+}, null, true, 'Europe/Moscow');
+
 module.exports = {
-    updateAvatar,
+    updateAvatarJob,
 };

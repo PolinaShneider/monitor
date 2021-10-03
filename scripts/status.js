@@ -38,7 +38,7 @@ const getTextStatus = () => {
 const changeStatus = () => {
     const url = `${VK_API_URL}status.set?access_token=${ACCESS_TOKEN}&v=${API_VER}&text=${encodeURIComponent(getTextStatus())}`;
     const musicUrl = `${VK_API_URL}status.set?access_token=${ACCESS_TOKEN}&v=${API_VER}&audio=${getRandomTrack()}`;
-    const targetUrl = Math.random() > 0.5 ? url : musicUrl;
+    const targetUrl = Math.random() > 0.6 ? url : musicUrl;
     axios.get(targetUrl)
         .then(function ({data}) {
             // handle success

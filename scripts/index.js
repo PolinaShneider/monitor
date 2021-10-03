@@ -1,5 +1,5 @@
-const {downloadImagesJob, imageMagickJob} = require('./image');
-const {changeAvatarJob} = require('./avatar');
+const {downloadImagesJob} = require('./image');
+const {updateAvatarJob} = require('./avatar');
 const {changeStatusJob, getAudiosJob} = require('./status');
 
 const express = require('express');
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
  * Start jobs
  */
 downloadImagesJob.start();
-imageMagickJob.start();
+updateAvatarJob.start();
 changeStatusJob.start();
 getAudiosJob.start();
 

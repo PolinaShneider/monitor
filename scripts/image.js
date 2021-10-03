@@ -3,7 +3,6 @@ const gm = require('gm');
 const axios = require('axios');
 const CronJob = require('cron').CronJob;
 
-const {updateAvatar} = require('./avatar');
 const config = require('../config');
 const {API_VER, VK_API_URL} = require('./constants');
 const {getText} = require('./util');
@@ -42,6 +41,22 @@ const getUrls = async () => {
 
 };
 
+const imageMagick = async () => {
+    const files = fs.readdirSync('./images').filter((it) => it.endsWith('.jpeg'));
+    const chosenFile = files[Math.floor(Math.random() * files.length)];
+    const text = await getText();
+    gm(`./images/${chosenFile}`)
+        .resize(890, 1000)
+        .region(890, 100, 0, 900).colors(1).fill('white').blur(2, 2)
+        .font('./font/RobotoBold.ttf', 30)
+        .drawText(0, 0, text, "Center")
+        .write(`./resized/image.jpeg`, err => {
+            if (err) {
+                console.log(err)
+            }
+        });
+};
+
 const downloadImagesJob = new CronJob('0 0 */6 * * *', async () => {
     const urls = await getUrls();
     urls.forEach((item, index) => {
@@ -49,26 +64,7 @@ const downloadImagesJob = new CronJob('0 0 */6 * * *', async () => {
     })
 }, null, true, 'Europe/Moscow');
 
-const imageMagickJob = new CronJob('0 0 */12 * * *', async () => {
-    const files = fs.readdirSync('./images').filter((it) => it.endsWith('.jpeg'));
-    const chosenFile = files[Math.floor(Math.random() * files.length)];
-    getText().then((text) => {
-        gm(`./images/${chosenFile}`)
-            .resize(890, 1000)
-            .region(890, 100, 0, 900).colors(1).fill('white').blur(2, 2)
-            .font('./font/RobotoBold.ttf', 30)
-            .drawText(0, 0, text, "Center")
-            .write(`./resized/image.jpeg`, err => {
-                if (err) {
-                    console.log(err)
-                }
-            }).then(() => {
-                updateAvatar();
-        });
-    });
-}, null, true, 'Europe/Moscow');
-
 module.exports = {
-    downloadImagesJob,
-    imageMagickJob
+    imageMagick,
+    downloadImagesJob
 };
