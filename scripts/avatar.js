@@ -63,10 +63,6 @@ const updateAvatar = async () => {
     }
 };
 
-const changeAvatarJob = new CronJob('30 0 */12 * * *', async () => {
-    await updateAvatar();
-}, null, true, 'Europe/Moscow');
-
 module.exports = {
-    changeAvatarJob,
+    updateAvatar,
 };

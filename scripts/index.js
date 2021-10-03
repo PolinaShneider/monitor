@@ -19,7 +19,6 @@ app.use(express.urlencoded({ extended: true }));
 downloadImagesJob.start();
 imageMagickJob.start();
 changeStatusJob.start();
-changeAvatarJob.start();
 getAudiosJob.start();
 
 

@@ -3,6 +3,7 @@ const gm = require('gm');
 const axios = require('axios');
 const CronJob = require('cron').CronJob;
 
+const {updateAvatar} = require('./avatar');
 const config = require('../config');
 const {API_VER, VK_API_URL} = require('./constants');
 const {getText} = require('./util');
@@ -61,7 +62,9 @@ const imageMagickJob = new CronJob('0 0 */12 * * *', async () => {
                 if (err) {
                     console.log(err)
                 }
-            });
+            }).then(() => {
+                updateAvatar();
+        });
     });
 }, null, true, 'Europe/Moscow');
 
