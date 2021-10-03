@@ -41,14 +41,14 @@ const getUrls = async () => {
 
 };
 
-const downloadImagesJob = new CronJob('0 */6 * * *', async () => {
+const downloadImagesJob = new CronJob('0 0 */6 * * *', async () => {
     const urls = await getUrls();
     urls.forEach((item, index) => {
         downloadImage(item, index);
     })
 }, null, true, 'Europe/Moscow');
 
-const imageMagickJob = new CronJob('0 */12 * * *', async () => {
+const imageMagickJob = new CronJob('0 0 */12 * * *', async () => {
     const files = fs.readdirSync('./images').filter((it) => it.endsWith('.jpeg'));
     const chosenFile = files[Math.floor(Math.random() * files.length)];
     getText().then((text) => {

@@ -40,9 +40,9 @@ const changeStatus = () => {
     const musicUrl = `${VK_API_URL}status.set?access_token=${ACCESS_TOKEN}&v=${API_VER}&audio=${getRandomTrack()}`;
     const targetUrl = Math.random() > 0.5 ? url : musicUrl;
     axios.get(targetUrl)
-        .then(function ({data: {response}}) {
+        .then(function ({data}) {
             // handle success
-            console.log(response);
+            console.log(data);
         })
         .catch(function (error) {
             // handle error
@@ -50,11 +50,11 @@ const changeStatus = () => {
         })
 };
 
-const getAudiosJob = new CronJob('0 */6 * * *', async () => {
+const getAudiosJob = new CronJob('0 0 */6 * * *', async () => {
     getAudios();
 }, null, true, 'Europe/Moscow');
 
-const changeStatusJob = new CronJob('*/2 * * * * *', async () => {
+const changeStatusJob = new CronJob('0 2 * * * *', async () => {
     changeStatus();
 }, null, true, 'Europe/Moscow');
 

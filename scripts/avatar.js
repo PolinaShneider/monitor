@@ -63,7 +63,7 @@ const updateAvatar = async () => {
     }
 };
 
-const changeAvatarJob = new CronJob('30 */12 * * *', async () => {
+const changeAvatarJob = new CronJob('0 30 */12 * * *', async () => {
     await updateAvatar();
 }, null, true, 'Europe/Moscow');
 
