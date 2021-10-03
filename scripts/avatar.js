@@ -65,8 +65,7 @@ const updateAvatar = async () => {
 };
 
 const updateAvatarJob = new CronJob('30 0 */6 * * *', async () => {
-    await imageMagick();
-    await updateAvatar();
+    await imageMagick(updateAvatar)
 }, null, true, 'Europe/Moscow');
 
 module.exports = {

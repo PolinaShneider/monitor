@@ -41,7 +41,7 @@ const getUrls = async () => {
 
 };
 
-const imageMagick = async () => {
+const imageMagick = async (cb) => {
     const files = fs.readdirSync('./images').filter((it) => it.endsWith('.jpeg'));
     const chosenFile = files[Math.floor(Math.random() * files.length)];
     const text = await getText();
@@ -53,6 +53,8 @@ const imageMagick = async () => {
         .write(`./resized/image.jpeg`, err => {
             if (err) {
                 console.log(err)
+            } else {
+                cb();
             }
         });
 };
