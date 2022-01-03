@@ -1,6 +1,7 @@
 const {downloadImagesJob} = require('./image');
 const {updateAvatarJob} = require('./avatar');
 const {changeStatusJob, getAudiosJob} = require('./status');
+require('./bot');
 
 const express = require('express');
 const cors = require('cors');
