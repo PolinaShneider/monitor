@@ -1,0 +1,6 @@
+profiles/*
+photos/*
+dp_log.log
+.env
+.idea/
+__pycache__

@@ -18,7 +18,7 @@ const downloadImage = async (url, idx) => {
 
     try {
         await response.data
-            .pipe(fs.createWriteStream(`images/photo-${idx}.jpeg`));
+            .pipe(fs.createWriteStream(`./images/photo-${idx}.jpeg`));
     } catch (e) {
         console.log('error when downloading image')
     }
@@ -66,7 +66,21 @@ const downloadImagesJob = new CronJob('0 0 */6 * * *', async () => {
     })
 }, null, true, 'Europe/Moscow');
 
+getUrls().then((urls) => {
+    urls.forEach(async (item, index) => {
+        await downloadImage(item, index);
+    });
+    return true;
+}).then(() => {
+    imageMagick(() => {console.log('done preparing the image')}).then();
+});
+
+const imageMagickJob = new CronJob('*/10 * * * *', async () => {
+    await imageMagick(() => {console.log('has created new avatar')});
+}, null, true, 'Europe/Moscow');
+
+
 module.exports = {
-    imageMagick,
+    imageMagickJob,
     downloadImagesJob
 };

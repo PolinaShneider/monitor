@@ -1,4 +1,5 @@
 const plural = require('plural-ru');
+const moment = require('moment');
 const axios = require('axios');
 const config = require('../config');
 
@@ -27,9 +28,11 @@ const getText = async () => {
         'дней'
     );
 
+    const lastUpdatedText = moment().format('DD.MM.YYYY в HH:mm');
+
     const weather = await getWeather();
 
-    return `До Нового Года ${diff} ${days} | Погода в СПБ — ${weather}`;
+    return `Обновлено: ${lastUpdatedText} | Погода в СПБ — ${weather}`;
 };
 
 module.exports = {

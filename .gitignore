@@ -108,3 +108,4 @@ dist
 images/*
 resized/*
 config
+vk_config.v2.json

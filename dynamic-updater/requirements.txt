@@ -1,0 +1,5 @@
+pycron
+requests
+vk_api
+python-decouple
+wand
