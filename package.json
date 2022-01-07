@@ -4,7 +4,8 @@
   "description": "🖤📈🚨",
   "main": "scripts/index.js",
   "scripts": {
-    "restart": "npm run stop && npm run start && forever list",
+    "forever:python": "forever start -c python ./dynamic-updater/main.py",
+    "restart": "npm run stop && npm run start && npm run forever:python && forever list",
     "start": "forever start scripts/index.js",
     "stop": "forever stopall"
   },
