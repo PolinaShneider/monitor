@@ -5,7 +5,7 @@
   "main": "scripts/index.js",
   "scripts": {
     "forever:python": "forever start -c python ./dynamic-updater/main.py",
-    "restart": "npm run stop && npm run start && npm run forever:python && forever list",
+    "restart": "npm run forever:python & npm run start",
     "start": "forever start scripts/index.js",
     "stop": "forever stopall"
   },
