@@ -1,10 +1,14 @@
 const config = require('../config');
-const BOT_TOKEN = config.BOT_TOKEN || '';
+const {BOT_TOKEN = '', ACCESS_TOKEN = '', OWNER_ID} = config;
 
-const {VK} = require('vk-io');
+const {VK, Attachment, AttachmentType, API} = require('vk-io');
 
 const vk = new VK({
     token: BOT_TOKEN
+});
+
+const api = new API({
+    token: ACCESS_TOKEN,
 });
 
 vk.updates.on('message_new', async (context) => {
@@ -14,6 +18,7 @@ vk.updates.on('message_new', async (context) => {
             
 		/cat - Коську мне
 		/music - Песню мне 
+		/goods — Показать товары
 		/time - Время скажи`);
             break;
         }
@@ -23,6 +28,28 @@ vk.updates.on('message_new', async (context) => {
 
                 context.sendPhotos({
                     value: 'https://loremflickr.com/400/300/'
+                })
+            ]);
+            break;
+        }
+        case '/goods': {
+            const goods = await api.market.get({
+                owner_id: OWNER_ID,
+            });
+            await Promise.all([
+                context.send('В наличии есть немножко магии'),
+
+                goods.items.forEach((item) => {
+                    context.send(`ID товара ${item.id}`, {
+                        attachment: new Attachment({
+                            type: AttachmentType.MARKET,
+                            api,
+                            payload: {
+                                id: item.id,
+                                owner_id: item.owner_id,
+                            }
+                        })
+                    })
                 })
             ]);
             break;
