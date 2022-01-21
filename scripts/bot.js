@@ -1,5 +1,5 @@
 const config = require('../config');
-const {BOT_TOKEN = '', ACCESS_TOKEN = '', OWNER_ID} = config;
+const {BOT_TOKEN = '', MARKET_TOKEN = '', OWNER_ID} = config;
 
 const {VK, Attachment, AttachmentType, API} = require('vk-io');
 
@@ -8,7 +8,7 @@ const vk = new VK({
 });
 
 const api = new API({
-    token: ACCESS_TOKEN,
+    token: MARKET_TOKEN,
 });
 
 vk.updates.on('message_new', async (context) => {
