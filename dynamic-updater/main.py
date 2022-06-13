@@ -36,9 +36,6 @@ def main():
                 print('problems updating photo')
             except Exception:
                 print('something went terribly wrong')
-            time.sleep(60)
-        else:
-            time.sleep(15)
 
 
 if __name__ == '__main__':
