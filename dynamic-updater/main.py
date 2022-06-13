@@ -25,7 +25,7 @@ def main():
         print('updated photo successfully')
 
     while True:
-        if pycron.is_now('*/5 * * * *'):
+        if pycron.is_now('*/15 * * * *'):
             try:
                 res = vk.users.get(fields='photo_id')
                 target_photo_id = res[0]['photo_id'].split('_')[-1]
