@@ -18,6 +18,12 @@ def main():
     target = Target(vk_session.http)
     vk = vk_session.get_api()
 
+    res = vk.users.get(fields='photo_id')
+    target_photo_id = res[0]['photo_id'].split('_')[-1]
+    resp = target.change_photo(target_photo_id)
+    if resp:
+        print('updated photo successfully')
+
     while True:
         if pycron.is_now('0 0 * * *'):
             try:

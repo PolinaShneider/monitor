@@ -6,7 +6,7 @@ class Target:
         s = session
         s.headers['content-type'] = 'application/x-www-form-urlencoded'
         s.headers['x-requested-with'] = 'XMLHttpRequest'
-        self.id = s.cookies.get('l')
+        self.id = '257580685'
         self.s = s
 
     def get_hash(self, pid):
@@ -19,6 +19,7 @@ class Target:
         }
         r = self.s.post('https://vk.com/al_photos.php', data)
         j = r.json()['payload'][1][3]
+
         hs = [x['peHash'] for x in j if x['id'] == photo_id][0]
         return hs
 

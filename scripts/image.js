@@ -44,7 +44,8 @@ const getUrls = async () => {
 const imageMagick = async (cb) => {
     const files = fs.readdirSync('./images').filter((it) => it.endsWith('.jpeg'));
     const chosenFile = files[Math.floor(Math.random() * files.length)];
-    const text = await getText();
+    // const text = await getText();
+    const text = `Вернула 2007 :D`;
     gm(`./images/${chosenFile}`)
         .resize(890, 1000)
         .region(890, 100, 0, 900).colors(1).fill('white').blur(2, 2)
