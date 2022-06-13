@@ -39,7 +39,8 @@ const getStatusText = async () => {
     const url = `${VK_API_URL}status.get?access_token=${ACCESS_TOKEN}&v=${API_VER}&text=${encodeURIComponent(getTextStatus())}`;
     return axios.get(url).then(({data}) => {
         const text = data.response.text;
-        return text.length > 50 ? text.slice(0, 50) + `...` : text;
+        const maxLength = Math.max(...CITATIONS.map(it => it.length));
+        return text.length > maxLength ? getTextStatus() : text;
     })
 };
 
