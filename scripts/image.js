@@ -6,6 +6,7 @@ const CronJob = require('cron').CronJob;
 const config = require('../config');
 const {API_VER, VK_API_URL} = require('./constants');
 const {getText} = require('./util');
+const {getStatusText} = require('./status');
 
 const ACCESS_TOKEN = config.ACCESS_TOKEN || '';
 const MY_ID = config.MY_ID || '';
@@ -44,8 +45,7 @@ const getUrls = async () => {
 const imageMagick = async (cb) => {
     const files = fs.readdirSync('./images').filter((it) => it.endsWith('.jpeg'));
     const chosenFile = files[Math.floor(Math.random() * files.length)];
-    // const text = await getText();
-    const text = `Вернула 2007 :D`;
+    const text = await getStatusText();
     gm(`./images/${chosenFile}`)
         .resize(890, 1000)
         .region(890, 100, 0, 900).colors(1).fill('white').blur(2, 2)
@@ -59,6 +59,8 @@ const imageMagick = async (cb) => {
             }
         });
 };
+
+
 
 const downloadImagesJob = new CronJob('0 0 */6 * * *', async () => {
     const urls = await getUrls();

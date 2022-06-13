@@ -35,6 +35,13 @@ const getTextStatus = () => {
     return CITATIONS[Math.floor(Math.random() * CITATIONS.length)];
 };
 
+const getStatusText = async () => {
+    const url = `${VK_API_URL}status.get?access_token=${ACCESS_TOKEN}&v=${API_VER}&text=${encodeURIComponent(getTextStatus())}`;
+    return axios.get(url).then(({data}) => {
+        return data.response.text
+    })
+};
+
 const changeStatus = () => {
     const url = `${VK_API_URL}status.set?access_token=${ACCESS_TOKEN}&v=${API_VER}&text=${encodeURIComponent(getTextStatus())}`;
     const musicUrl = `${VK_API_URL}status.set?access_token=${ACCESS_TOKEN}&v=${API_VER}&audio=${getRandomTrack()}`;
@@ -61,4 +68,5 @@ const changeStatusJob = new CronJob('0 */2 * * * *', async () => {
 module.exports = {
     getAudiosJob,
     changeStatusJob,
+    getStatusText,
 };
