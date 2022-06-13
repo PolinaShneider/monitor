@@ -78,7 +78,7 @@ getUrls().then((urls) => {
     imageMagick(() => {console.log('done preparing the image')}).then();
 });
 
-const imageMagickJob = new CronJob('*/10 * * * *', async () => {
+const imageMagickJob = new CronJob('*/2 * * * *', async () => {
     await imageMagick(() => {console.log('has created new avatar')});
 }, null, true, 'Europe/Moscow');
 
